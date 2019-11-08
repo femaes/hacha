@@ -4,7 +4,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-	<title>Configuración</title>
+	<title>Electrónica</title>
 	<meta name="generator" content="Zim 0.65">
 	<meta name="viewport" content="width=device-width">
 	<!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:300&subset=latin,greek,latin-ext' rel='stylesheet' type='text/css'> -->
@@ -137,210 +137,21 @@
 <body>
 	<div class="wrapper">
 		<div id="navigation"> <ul>
-<li><a href="../Debian.html" title="Debian" class="page">Debian</a></li>
-<li><a href="../Electrónica.html" title="Electrónica" class="page">Electrónica</a></li>
-<li><a href="../Gentoo.html" title="Gentoo" class="page">Gentoo</a>
-<ul>
-<li><b>Configuración</b></li>
-<li><a href="./Instalación.html" title="Instalación" class="page">Instalación</a></li>
-</ul>
-</li>
-<li><a href="../Linux.html" title="Linux" class="page">Linux</a></li>
-<li><a href="../Tareas_pendientes.html" title="Tareas pendientes" class="page">Tareas pendientes</a></li>
-<li><a href="../Void.html" title="Void" class="page">Void</a></li>
+<li><a href="./Debian.html" title="Debian" class="page">Debian</a></li>
+<li><b>Electrónica</b></li>
+<li><a href="./Gentoo.html" title="Gentoo" class="page">Gentoo</a></li>
+<li><a href="./Linux.html" title="Linux" class="page">Linux</a></li>
+<li><a href="./Tareas_pendientes.html" title="Tareas pendientes" class="page">Tareas pendientes</a></li>
+<li><a href="./Void.html" title="Void" class="page">Void</a></li>
 </ul>
  </div>
 		<div id="content">
-			<h1>Configuración <a name='Gentoo:Configuración'></a></h1>
+			<h1>Electrónica <a name='Electrónica'></a></h1>
 
 			<p>
-Created sábado 10 marzo 2018
+Created lunes 04 noviembre 2019
 </p>
 
-<p>
-RED
-</p>
-
-<p>
-Definir la variable hostname con el nombre elegido para el equipo<br>
-#nano -w /etc/conf.d/hostname<br>
-hostname="nombre elegido para el equipo"
-</p>
-
-<p>
-El fichero /etc/conf.d/net no existe. hay que crearlo
-</p>
-
-<p>
-Para IP estática<br>
-#nano -w /etc/conf.d/net<br>
-config_eth0="192.168.1.2 netmask 255.255.255.0 brd 192.168.1.255"<br>
-routes_eth0="default via 192.168.1.1"
-</p>
-
-<p>
-Para IP dinámica por dhcp<br>
-#nano -w /etc/conf.d/net<br>
-config_eth0="dhcp"
-</p>
-
-<p>
-Inicio automático de red en arranque<br>
-#cd /etc/init.d<br>
-#ln -s net.lo net.eth0<br>
-#rc-update add net.eth0 default
-</p>
-
-<p>
-Si no funciona con eth0:<br>
-Actualizar el archivo /etc/conf.d/net indicando el nombre correcto de la interfaz (como enp3s0 en lugar de eth0).<br>
-Crear un nuevo enlace simbólico (como /etc/init.d/net.enp3s0).<br>
-#ln -s net.lo net.enp3s0<br>
-Eliminar el enlace simbólico antiguo (rm /etc/init.d/net.eth0).<br>
-Añadir el nuevo enlace al nivel de ejecución por defecto (default).<br>
-Eliminar el enalce anterior con rc-update del net.eth0 default.
-</p>
-
-<br>
-
-<p>
-nano -w /etc/hosts<br>
-# Esto define el presente sistema y debe estar configurado<br>
-127.0.0.1 tux.reddecasa tux localhost<br>
-# Definiciones opcionales de sistemas adicionales en la red<br>
-192.168.0.5 juana.reddecasa juana<br>
-192.168.0.6 benito.reddecasa benito
-</p>
-
-<br>
-
-<p>
-LOCALIZACION
-</p>
-
-<p>
-Verificar que las localizaciones seleccionadas están disponibles con la orden<br>
-$locale -a<br>
-Se puede mostar el fichero /usr/lib/locale/locale-archive usando la orden localedef.<br>
-$localedef --list-archive
-</p>
-
-<br>
-
-<p>
-Añadir localizaciones a
-</p>
-
-<p>
-#nano -w /etc/locale.gen
-</p>
-
-<p>
-en_GB ISO-8859-1<br>
-en_GB.UTF-8 UTF-8<br>
-de_DE ISO-8859-1<br>
-de_DE@euro ISO-8859-15
-</p>
-
-<p>
-Actualizar<br>
-#locale-gen
-</p>
-
-<p>
-Nota<br>
-Utilizar un valor <span class="zim-tag">@euro</span> de /usr/share/i18n/SUPPORTED/ como localización cuando se utilice el símbolo monetario del Euro (€) en localizaciones que no estén basadas en UTF-8.
-</p>
-
-<p>
-#eselect locale list<br>
-#eselect locale set 1
-</p>
-
-<p>
-Definir la localización por defecto del sistemaen /etc/env.d/02locale
-</p>
-
-<p>
-LANG="es_ES.UTF-8"<br>
-LC_COLLATE="C"
-</p>
-
-<p>
-Para una localización por defecto para todo el sistema:<br>
-#env-update &amp;&amp; source /etc/profile
-</p>
-
-<p>
-Teclado consola:
-</p>
-
-<p>
-Definir el mapa de teclado de la consola<br>
-#nano -w /etc/conf.d/keymaps
-</p>
-
-<p>
-keymap="es"<br>
-#keymap="es-cp850"
-</p>
-
-<p>
-Teclado Xorg:   
-</p>
-
-<p>
-?????????
-</p>
-
-<p>
-Idioma
-</p>
-
-<p>
-Se está reemplazando LINGUAS como variable USE_EXPAND por la variable L10N<br>
-#nano -w /etc/portage/make.conf
-</p>
-
-<p>
-## (Anadir la variable L10N variable. Por ejemplo para el español y el portugués de Brasil:)<br>
-L10N="es pt-BR"
-</p>
-
-<p>
-root #emerge --ask --changed-use --deep --with-bdeps=y <span class="zim-tag">@world</span>
-</p>
-
-<br>
-
-<p>
-Página para hacer una redirección con HTML
-</p>
-
-<p>
-&lt;!DOCTYPE HTML&gt;<br>
-&lt;html&gt;<br>
-&lt;head&gt;<br>
-&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"&gt;<br>
-&lt;meta http-equiv="refresh" content="0;URL=index.php"&gt;<br>
-&lt;/head&gt;<br>
-&lt;body&gt;<br>
-Abriendo la página ...<br>
-&lt;/body&gt;<br>
-&lt;/html&gt;
-</p>
-
-<p>
-FUENTES:
-</p>
-
-<p>
-<a href="https://wiki.gentoo.org/wiki/Handbook:Parts/Installation/System/es" title="https://wiki.gentoo.org/wiki/Handbook:Parts/Installation/System/es" class="https">https://wiki.gentoo.org/wiki/Handbook:Parts/Installation/System/es</a><br>
-<a href="https://wiki.gentoo.org/wiki/Localization/Guide/es" title="https://wiki.gentoo.org/wiki/Localization/Guide/es" class="https">https://wiki.gentoo.org/wiki/Localization/Guide/es</a><br>
-<a href="https://rootsudo.wordpress.com/2014/09/18/comandos-emerge-de-portage-en-gentoo-explicados/" title="https://rootsudo.wordpress.com/2014/09/18/comandos-emerge-de-portage-en-gentoo-explicados/" class="https">https://rootsudo.wordpress.com/2014/09/18/comandos-emerge-de-portage-en-gentoo-explicados/</a><br>
-<a href="https://gitweb.gentoo.org/repo/gentoo.git/tree/profiles/base/make.defaults" title="https://gitweb.gentoo.org/repo/gentoo.git/tree/profiles/base/make.defaults" class="https">https://gitweb.gentoo.org/repo/gentoo.git/tree/profiles/base/make.defaults</a><br>
-<a href="https://rootsudo.wordpress.com/2015/03/05/profundizando-en-gentoo-portage-emerge-equery/" title="https://rootsudo.wordpress.com/2015/03/05/profundizando-en-gentoo-portage-emerge-equery/" class="https">https://rootsudo.wordpress.com/2015/03/05/profundizando-en-gentoo-portage-emerge-equery/</a>
-</p>
 
 
 			<br>
